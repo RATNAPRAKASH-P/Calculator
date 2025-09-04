@@ -1,0 +1,25 @@
+version: 0.0
+os: windows
+files:
+  - source: /
+    destination: C:\JavaApp   # Where the app will be deployed
+
+hooks:
+  ApplicationStop:
+    - location: scripts\stop_app.bat
+      timeout: 60
+      runas: Administrator
+  BeforeInstall:
+    - location: scripts\cleanup.bat
+      timeout: 60
+      runas: Administrator
+
+  AfterInstall:
+    - location: scripts\unzip.bat
+      timeout: 120
+      runas: Administrator
+
+  ApplicationStart:
+    - location: scripts\start_app.bat
+      timeout: 120
+      runas: Administrator
